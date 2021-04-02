@@ -2,15 +2,18 @@ use std::fs::{File};
 use std::io::{Write};
 use std::path::Path;
 use std::process::Command;
+use std::env;
 
 #[tokio::main]
 async fn main() -> Result<(), reqwest::Error> {
 
     println!("Welcome to the package manager!");
 
-    let url =
+    let cli_args: Vec<String> = env::args().collect();
+
+    let url = &cli_args[1];
     // "https://github.com/git-for-windows/git/releases/download/v2.31.1.windows.1/Git-2.31.1-64-bit.exe";
-    "https://launcher.mojang.com/download/MinecraftInstaller.msi";
+    // "https://launcher.mojang.com/download/MinecraftInstaller.msi";
     let exename = Path::new(url).file_name().unwrap();
     let progtype = Path::new(url).extension().unwrap();
 
